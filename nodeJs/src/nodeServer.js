@@ -6,7 +6,6 @@ var proxy = require('http-proxy-middleware');
 var app = express();
 
 
-
 app.use('/api', proxy({ target: 'http://note.wiz.cn', changeOrigin: true }));
 app.use('/wizas', proxy({ target: 'http://note.wiz.cn', changeOrigin: true }));
 
