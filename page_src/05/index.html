@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>05 HTML &amp; CSS 入门</title>
+    <script type="text/javascript" src="/libs/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+    <style>
+    #login-layer {
+        margin-top: 80px;
+        text-align: center;
+    }
+    .login-row {
+        margin: 10px;
+    }
+
+    .biz p{ 
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .group-list {
+        margin-left: 30px;        
+    }
+    .group {
+        margin-right: 20px;
+        background-color: silver;
+    }
+    </style>
+</head>
+
+<body onload='run()'>
+    <div id="login-layer">
+        <div class="login-row"><label for="username">用户名：</label><input type="text" id="username" value="guide103@wiz.cn"></div>
+        <div class="login-row"><label for="password">密码：</label><input type="password" id="password" value="111111"></div>
+        <div class="login-row"><button id="submit">登录</button></div>
+    </div>
+    <div id="biz-list">
+    </div>
+</body>
+
+</html>
