@@ -1,7 +1,7 @@
 
-function run() {
+$(document).ready(function() {
     initDom();
-}
+});
 
 var loginLayer, bizListLayer, button, loader;
 
