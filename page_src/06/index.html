@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>05 HTML &amp; CSS 入门</title>
+    <link href="index.css" rel="stylesheet" />
+    <script type="text/javascript" src="/libs/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+</head>
+
+<body onload='run()'>
+    <div id="login-layer">
+        <div class="login-row"><label for="username">用户名：</label><input type="text" id="username" value="" autocomplete="off"></div>
+        <div class="login-row"><label for="password">密码：</label><input type="password" id="password" value=""></div>
+        <div class="login-row">
+            <label>&nbsp;</label>
+            <div class="button-layer">
+                <button id="submit">登录</button>
+                <div id="loader" class="loader">
+                    <div class="loader-inner ball-clip-rotate-pulse">
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="biz-list">
+    </div>
+</body>
+
+</html>
