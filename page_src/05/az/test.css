@@ -1,0 +1,40 @@
+body{
+   background-size:3px;
+   background: silver url(background.png);
+   background-repeat:no-repeat;
+   padding-top:80px;
+   background-attachment: fixed;
+}
+
+#login{
+    margin:100px auto;
+    background:yellow;
+    width:400px
+}
+
+#submit{
+    padding:5px;
+    margin:5px 5px 5px 0;
+    border-radius:2px;
+}
+
+#content{
+    margin:100px 50px;
+    padding:20px;
+    background:orange;
+    display: none
+}
+
+#biz{
+   text-align: left;
+   text-indent: 5px;
+   border:2px solid blue;
+   border-radius:2px;
+}
+
+#group{
+    margin-top:20px;
+    text-align: left;
+    text-indent: 15px;
+    border:2px solid black;
+}

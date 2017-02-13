@@ -1,0 +1,226 @@
+<html>
+    <head>
+        <title>LogOn</title>
+        <script type="text/javascript" src="jquery-1.8.1.min.js"></script>
+        <style>
+        body{
+            font-family: "Microsoft YaHei", Georgia, Helvetica, Arial, sans-serif, 宋体, serif, PMingLiU;
+            color: rgb(51, 51, 51);
+            background-color: #f4f7fc;
+            font-size: 10pt;
+            line-height: 1.5;
+        }
+        td{
+            line-height: 30px;
+        }
+        div{
+            line-height: 2;
+            margin:2 2 2 2;
+            color:#2d3138;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="bizGroups" style="display:none"></div>
+        <div id="login">
+            <table align="center">
+                <tr>
+                    <td>
+                        <label for="username">用户名：</label>
+                    </td>
+                    <td>
+                        <input type="text" id="username" data-emppty="用户名不能为空"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="password">密码：</label>
+                    </td>
+                    <td>
+                        <input type="password" id="password" data-empty="密码不能为空"/>
+                    </td>
+                </tr>
+                <tr>   <!-- 登录按钮水平居中如何实现？ -->
+                    <td>  
+                        <button id="submit">登录</button>
+                    </td>
+                </tr>
+            </table>
+            <div id="loginfailed" style="text-align: center"></div>
+        </div>
+        <script type="text/javascript">
+        document.body.onload = function(){
+            document.getElementById("username").focus();
+        }
+        function CheckValueIsNull(elem){
+            if(!elem)
+            return;
+            //
+            if(!elem.value){
+                if(elem.hasAttribute("data-empty")){
+                    alert(elem.getAttribute("data-empty"));
+                }
+                return false;
+            }
+            return true;
+        }
+        function login(){
+            console.log("1");
+            var elem = document.getElementById("username");
+            if(!CheckValueIsNull(elem)){
+                elem.focus();
+                return;
+            }
+            var username = elem.value;
+            //
+            elem = document.getElementById("password");
+            if(!CheckValueIsNull(elem)){
+                elem.focus();
+                return;
+            }
+            var password = elem.value;
+            console.log("2");
+            //
+            $(this).attr("disabled", "true");
+            //
+            $.ajax({
+                url: "/api/login",
+                type: "POST",
+                data:{
+                    "user_id": username,
+                    "password": password
+                },
+                dataType: "json",
+                success: function(json){
+                    console.log(json);
+                    if(json.code == "200"){
+                        getAndShowBizGroups(json.token);
+                    }else{
+                        //$('#loginfailed').innerText = json.message;
+                        document.getElementById("loginfailed").innerText = "登录失败，错误：" + json.message;
+                    }
+                    //
+                    $(this).attr("disabled", "false");
+                },
+                error: function(){
+                    $(this).attr("disabled", "false");
+                }
+            });
+        }
+        $('#submit').click(function(){
+            login();
+        });
+        //
+        var bizGroups = [];
+        var bizlist = [];
+        //
+        function getAndShowBizGroups(token){
+            var elem = document.getElementById("login");
+            if(!elem)
+            return;
+            //
+            elem.style.display = "none";
+            //
+            elem = document.getElementById("bizGroups");
+            if(!elem)
+            return;
+            //
+            elem.style.display = "";
+            //
+            elem.innerHTML = "";
+            //
+            var url = "/wizas/a/groups?api_version=6&token=" + token;
+            $.ajax({
+                url: url,
+                dataType: "json",
+                success: function(json){
+                    var groups = json.group_list;
+                    for(var i = 0; i < groups.length; i++){
+                        if(!groups[i].bizGuid)
+                        continue;
+                        //
+                        var group = {
+                            "groupName": groups[i].kbName,
+                            "bizGuid": groups[i].bizGuid
+                        };
+                        bizGroups.push(group);
+                    }
+                    //
+                    $.post("/wizas/a/biz/user_bizs?api_version=6&token=" + token, function(data){
+                        var result = data.result;
+                            for(var i = 0; i < result.length; i++){
+                                var biz = {
+                                    "bizGuid": result[i].biz_guid,
+                                    "bizName": result[i].biz_name
+                                };
+                                bizlist.push(biz);
+                            }
+                            showBizGroups();
+                    });
+                    /*$.ajax({
+                        url: "/wizas/a/biz/user_bizs?api_version=6&token=" + token,
+                        dataType: "json",
+                        success: function(data){
+                            var result = data.result;
+                            for(var i = 0; i < result.length; i++){
+                                var biz = {
+                                    "bizGuid": result[i].biz_guid,
+                                    "bizName": result[i].biz_name
+                                };
+                                bizlist.push(biz);
+                            }
+                            showBizGroups();
+                        }
+                    });*/
+                }
+            });
+        }
+        function getBizGroups(bizguid, groups){
+            if(!bizguid)
+            return;
+            //
+            var arrayGroup = [];
+            for(var i = 0; i < groups.length; i++){
+                if(groups[i].bizGuid == bizguid){
+                    arrayGroup.push(groups[i]);
+                }
+            }
+            //
+            return arrayGroup;
+        }
+        function createbizgroup(bizName, groups){
+            var elemBizGroups = document.getElementById("bizGroups");
+            if(!elemBizGroups)
+            return;
+            //
+            var elemBiz = document.createElement("h3");
+            elemBiz.innerText = bizName;
+            elemBizGroups.appendChild(elemBiz);
+            //
+            var elemgroup;
+            for(var i = 0; i < groups.length; i++){
+                elemgroup = document.createElement("div");
+                elemgroup.innerText = groups[i].groupName;
+                elemBizGroups.appendChild(elemgroup);
+            }
+        }
+        function showBizGroups(){
+            if(!bizGroups)
+            return;
+            //
+            if(!bizlist)
+            return;
+            //
+            var arraygroup = [];
+            for(var i = 0; i < bizlist.length; i++){
+                var bizguid = bizlist[i].bizGuid;
+                arraygroup = getBizGroups(bizguid, bizGroups);
+                if(arraygroup.length == 0)
+                continue;
+                //
+                createbizgroup(bizlist[i].bizName, arraygroup);
+            }
+        }
+        </script>
+    </body>
+</html>
