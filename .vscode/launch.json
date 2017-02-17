@@ -8,9 +8,37 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "启动程序",
+            "name": "WebServer",
             "program": "${workspaceRoot}/nodeJs/src/nodeServer.js",
             "cwd": "${workspaceRoot}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "ReadFile Async",
+            "program": "${workspaceRoot}/nodeJs/src/testReadFile/readAsync.js",
+            "cwd": "${workspaceRoot}/nodeJs/src"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "ReadFile Sync",
+            "program": "${workspaceRoot}/nodeJs/src/testReadFile/readSync.js",
+            "cwd": "${workspaceRoot}/nodeJs/src"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "ReadFile Promise",
+            "program": "${workspaceRoot}/nodeJs/src/testReadFile/readPromise.js",
+            "cwd": "${workspaceRoot}/nodeJs/src"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "ReadFile Generator",
+            "program": "${workspaceRoot}/nodeJs/src/testReadFile/readGenerator.js",
+            "cwd": "${workspaceRoot}/nodeJs/src"
         }
         
     ]
