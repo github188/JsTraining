@@ -39,6 +39,13 @@
             "name": "ReadFile Generator",
             "program": "${workspaceRoot}/nodeJs/src/testReadFile/readGenerator.js",
             "cwd": "${workspaceRoot}/nodeJs/src"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Co Test",
+            "program": "${workspaceRoot}/nodeJs/src/testReadFile/co.js",
+            "cwd": "${workspaceRoot}/nodeJs/src"
         }
         
     ]
