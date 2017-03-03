@@ -1,0 +1,21 @@
+<div class="container" *ngIf="isShow">
+    <form class="bd-example" (submit) = "login()">
+        <fieldset>
+            <legend>为知笔记 登录</legend>
+
+            <p>
+                <label for="userid">用户名：</label>
+                <input [(ngModel)]="userId" type="text" id="userid" name="userid" placeholder="用户邮箱、手机号">
+            </p>
+
+            <p>
+                <label for="password">密码：</label>
+                <input [(ngModel)]="password" type="password" id="password" name="password">
+            </p>
+
+            <p>
+                <button type="submit" >登录</button>
+            </p>
+        </fieldset>
+    </form>
+</div>

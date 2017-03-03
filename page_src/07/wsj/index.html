@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06 Javascript 入门</title>
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+
+    <style>
+    html {
+        font-size: 10px;
+    }
+    body {
+        font-family: '"Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif';
+        color: #333;
+        font-size: 1.6rem;
+        line-height: 1.6;
+    }
+    .wiz-label {
+        display: inline-block;
+        margin-bottom: 5px;
+        font-weight: 700;
+    }
+    .wiz-input{
+        display: block;
+        width: 100%;
+        padding: 0.5em 1em;
+        font-size: 1.6rem;
+        line-height: 1.2;
+        color: #555;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        text-rendering: optimizeLegibility;
+        box-sizing: border-box;
+        cursor: auto;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    }
+    .wiz-input:focus {
+        background-color: #fefffe;
+        border-color: #3bb4f2;
+        border: 1px solid #ccc;
+        outline: 0;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 5px rgba(59,180,242,.3);
+    }
+    .wiz-button {
+        padding: .5em 1em;
+        font-size: 1.4rem;
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.2;
+        text-align: center;
+        border: 1px solid transparent;
+        border-radius: 0;
+        user-select: none;
+        transition: background-color .3s ease-out,border-color .3s ease-out;        
+    }
+    .wiz-button-default {
+        color: #fff;
+        background-color: #0e90d2;
+        border-color: #0e90d2;
+    }
+    .wiz-button-default:focus, .wiz-button-default:hover {
+        background-color: #0a6999;
+    }
+    input[type=submit]:disabled{
+        background-color:gray;
+        border-color: gray;
+    }
+    .wiz-biz-container {
+        overflow: hidden;
+        transition: max-height .3s ease-out,border-color .3s ease-out;
+    }
+    .wiz-group {
+        padding: 8px;
+        box-sizing: border-box;
+    }
+    
+    @media (max-width: 640px) {
+        .wiz-group {
+            display: block;
+        }
+    }
+    @media (min-width: 640px) {
+        .wiz-group {
+            display: inline-block;
+        }
+    }
+    </style>
+
+    <style>
+    .spinner {
+        margin: 100px auto;
+        width: 50px;
+        height: 60px;
+        text-align: center;
+        font-size: 10px;
+    }
+        
+    .spinner > div {
+        background-color: #67CF22;
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+        
+        -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+        animation: stretchdelay 1.2s infinite ease-in-out;
+    }
+        
+    .spinner .rect2 {
+        -webkit-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+        
+    .spinner .rect3 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+        
+    .spinner .rect4 {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+     }
+        
+     .spinner .rect5 {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+     }
+        
+    @-webkit-keyframes stretchdelay {
+        0%, 40%, 100% { -webkit-transform: scaleY(0.4) } 
+        20% { -webkit-transform: scaleY(1.0) }
+    }
+        
+    @keyframes stretchdelay {
+        0%, 40%, 100% {
+            transform: scaleY(0.4);
+            -webkit-transform: scaleY(0.4);
+        }  20% {
+            transform: scaleY(1.0);
+            -webkit-transform: scaleY(1.0);
+        }
+    }
+    </style>
+
+</head>
+<body onload="init();">
+
+    <br>
+    <br>
+
+    <div style="max-width: 400px; display: block; margin: auto;" id="paneLogin">
+        <div>
+            <h3>登录</h3>
+            <hr>
+            <form onsubmit="return doLogin()">
+                <label class="wiz-label" for="username">用户名：</label><input class="wiz-input" type="text" id="username">
+                <br />
+                <label class="wiz-label" for="password">密码：</label><input class="wiz-input" type="password" id="password">
+
+                <div style="text-align: center">
+                    <br />
+                    <input type="submit" value="登录" id="login" class="wiz-button wiz-button-default">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="spinner" id="paneSpinner" style="display: none">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+    </div>
+
+    <div id="paneMain" style="display: none">
+    </div>
+
+</body>
+</html>
