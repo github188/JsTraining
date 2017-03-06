@@ -1,0 +1,10 @@
+<div class="container">
+    <ul>
+        <li *ngFor="let biz of bizList" [style.display]="(biz.groupList && biz.groupList.length>0)?'block':'none'">
+            <h4>{{ biz.biz_name }}</h4>
+            <div *ngFor="let group of biz.groupList">
+                <span>{{group.kbName}}</span>
+            </div>
+        </li>
+    </ul>
+</div>

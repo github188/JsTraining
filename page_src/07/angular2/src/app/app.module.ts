@@ -5,6 +5,7 @@ import { HttpModule }    from '@angular/http';
 
 import {AppComponent}  from './app.component';
 import {WizLoginComponent}  from './wiz-login.component';
+import {WizGroupListComponent}  from './wiz-group-list.component';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {WizLoginComponent}  from './wiz-login.component';
     ],
     declarations: [
         AppComponent,
-        WizLoginComponent
+        WizLoginComponent,
+        WizGroupListComponent
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

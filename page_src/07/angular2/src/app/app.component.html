@@ -1,2 +1,2 @@
-<wiz-login></wiz-login>
-<wiz-group-list></wiz-group-list>
+<wiz-login (onLogin)="setUserInfo($event)"></wiz-login>
+<wiz-group-list [userInfo] = "userInfo"></wiz-group-list>

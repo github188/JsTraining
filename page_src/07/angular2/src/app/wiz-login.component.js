@@ -16,9 +16,11 @@ require('rxjs/add/operator/catch');
 require('rxjs/add/operator/debounceTime');
 require('rxjs/add/operator/distinctUntilChanged');
 var wiz_service_1 = require('./wiz.service');
+var userInfo_1 = require('./data-model/userInfo');
 var WizLoginComponent = (function () {
     function WizLoginComponent(wizService) {
         this.wizService = wizService;
+        this.onLogin = new core_1.EventEmitter();
     }
     WizLoginComponent.prototype.ngOnInit = function () {
         this.userId = '';
@@ -32,10 +34,17 @@ var WizLoginComponent = (function () {
             password: this.password
         })
             .then(function (userInfo) {
-            console.log(userInfo);
-            userInfo ? _this.userInfo = userInfo : {};
+            _this.userInfo = userInfo ? userInfo : new userInfo_1.UserInfo();
+            if (_this.userInfo.code == '200') {
+                _this.onLogin.emit(_this.userInfo);
+                _this.isShow = false;
+            }
         });
     };
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], WizLoginComponent.prototype, "onLogin", void 0);
     WizLoginComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

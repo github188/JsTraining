@@ -13,11 +13,14 @@ var wiz_service_1 = require('./wiz.service');
 var AppComponent = (function () {
     function AppComponent() {
     }
+    AppComponent.prototype.setUserInfo = function (userInfo) {
+        this.userInfo = userInfo;
+    };
     AppComponent = __decorate([
         core_1.Component({
-            // moduleId: module.id,
+            moduleId: module.id,
             selector: 'my-app',
-            templateUrl: '/app/app.component.html',
+            templateUrl: './app.component.html',
             providers: [wiz_service_1.WizService]
         }), 
         __metadata('design:paramtypes', [])

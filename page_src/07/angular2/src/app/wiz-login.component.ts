@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 
 import {Observable}        from 'rxjs/Observable';
 import {Subject}           from 'rxjs/Subject';
@@ -20,6 +20,7 @@ import {UserInfo} from './data-model/userInfo';
     templateUrl: './wiz-login.component.html',
 })
 export class WizLoginComponent implements OnInit {
+    @Output() onLogin = new EventEmitter();
     isShow: Boolean;
     userId: String;
     password: String;
@@ -41,8 +42,11 @@ export class WizLoginComponent implements OnInit {
             password: this.password
         })
             .then(userInfo => {
-                console.log(userInfo);
-                userInfo ? this.userInfo = userInfo : {};
+                this.userInfo = userInfo ? userInfo : new UserInfo();
+                if (this.userInfo.code == '200') {
+                    this.onLogin.emit(this.userInfo);
+                    this.isShow = false;
+                }
             });
     }
 

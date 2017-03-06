@@ -14,6 +14,7 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var wiz_login_component_1 = require('./wiz-login.component');
+var wiz_group_list_component_1 = require('./wiz-group-list.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -26,7 +27,8 @@ var AppModule = (function () {
             ],
             declarations: [
                 app_component_1.AppComponent,
-                wiz_login_component_1.WizLoginComponent
+                wiz_login_component_1.WizLoginComponent,
+                wiz_group_list_component_1.WizGroupListComponent
             ],
             bootstrap: [app_component_1.AppComponent],
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]

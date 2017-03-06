@@ -18,11 +18,8 @@ var WizService = (function () {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
     }
-    WizService.prototype.login = function (options) {
-        var _urlParams = new http_1.URLSearchParams();
-        for (var k in options) {
-            _urlParams.append(k, options[k]);
-        }
+    WizService.prototype.login = function (params) {
+        var _urlParams = this.setParams(params);
         return this.http
             .post('/api/login', _urlParams, { headers: this.headers })
             .toPromise()
@@ -30,6 +27,43 @@ var WizService = (function () {
             return response.json();
         })
             .catch(this.handleError);
+    };
+    WizService.prototype.getBizList = function (params) {
+        return this.http
+            .get("/wizas/a/biz/user_bizs?token=" + params['token'])
+            .toPromise()
+            .then(function (response) {
+            var result = response.json();
+            if (result.return_code == 200) {
+                return result.result;
+            }
+            else {
+                return [];
+            }
+        })
+            .catch(this.handleError);
+    };
+    WizService.prototype.getGroupList = function (params) {
+        return this.http
+            .get("/wizas/a/groups?token=" + params['token'])
+            .toPromise()
+            .then(function (response) {
+            var result = response.json();
+            if (result.return_code == 200) {
+                return result.group_list;
+            }
+            else {
+                return [];
+            }
+        })
+            .catch(this.handleError);
+    };
+    WizService.prototype.setParams = function (params) {
+        var urlParams = new http_1.URLSearchParams();
+        for (var k in params) {
+            urlParams.append(k, params[k]);
+        }
+        return urlParams;
     };
     WizService.prototype.handleError = function (error) {
         console.error('An error occurred', error); // for demo purposes only
