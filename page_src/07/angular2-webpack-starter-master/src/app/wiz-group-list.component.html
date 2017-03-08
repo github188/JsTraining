@@ -1,0 +1,12 @@
+<div class="container">
+    <div *ngFor="let biz of bizList" [style.display]="(biz.groupList && biz.groupList.length>0)?'block':'none'">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">{{ biz.biz_name }}</li>
+        </ol>
+        <div class="row">
+            <div class="col-4 text-center" *ngFor="let group of biz.groupList">
+                <span>{{group.kbName}}</span>
+            </div>
+        </div>
+    </div>
+</div>
