@@ -1,4 +1,5 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {Observable}        from 'rxjs/Observable';
 import {Subject}           from 'rxjs/Subject';
@@ -20,20 +21,19 @@ import {UserInfo} from './data-model/userInfo';
     templateUrl: './wiz-login.component.html',
 })
 export class WizLoginComponent implements OnInit {
-    @Output() onLogin = new EventEmitter();
-    isShow: Boolean;
+    // @Output() onLogin = new EventEmitter();
     userId: String;
     password: String;
-    userInfo: UserInfo;
 
-    constructor(private wizService: WizService) {
+    constructor(
+        private router: Router,
+        private wizService: WizService) {
     }
 
 
     ngOnInit(): void {
         this.userId = '';
         this.password = '';
-        this.isShow = true;
     }
 
     login(): void {
@@ -42,10 +42,8 @@ export class WizLoginComponent implements OnInit {
             password: this.password
         })
             .then(userInfo => {
-                this.userInfo = userInfo ? userInfo : new UserInfo();
-                if (this.userInfo.code == '200') {
-                    this.onLogin.emit(this.userInfo);
-                    this.isShow = false;
+                if (userInfo.code == '200') {
+                    this.router.navigate(['grouplist']);
                 }
             });
     }

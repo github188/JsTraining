@@ -1,2 +1,6 @@
-<wiz-login (onLogin)="setUserInfo($event)"></wiz-login>
-<wiz-group-list *ngIf="!!userInfo" [userInfo] = "userInfo"></wiz-group-list>
+<main>
+    <router-outlet  (onLogin)="setUserInfo($event)"></router-outlet>
+</main>
+
+<!--<wiz-login (onLogin)="setUserInfo($event)"></wiz-login>-->
+<!--<wiz-group-list *ngIf="!!userInfo" [userInfo] = "userInfo"></wiz-group-list>-->

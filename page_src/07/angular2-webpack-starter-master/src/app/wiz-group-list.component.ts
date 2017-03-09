@@ -1,4 +1,5 @@
 import {Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {Observable}        from 'rxjs/Observable';
 import {Subject}           from 'rxjs/Subject';
@@ -21,22 +22,32 @@ import {GroupInfo} from './data-model/groupInfo';
     selector: 'wiz-group-list',
     templateUrl: './wiz-group-list.component.html',
 })
-export class WizGroupListComponent implements OnInit, OnChanges {
-    @Input() userInfo: UserInfo;
+export class WizGroupListComponent implements OnInit {
+    private userInfo: UserInfo;
     bizList: BizInfo[];
     groupList: GroupInfo[];
 
-    constructor(private wizService: WizService) {
+
+    constructor(
+        private router: Router,
+        private wizService: WizService) {
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['userInfo'].currentValue) {
-            this.getBizList();
-            this.getGroupList();
-        }
-    }
+    // ngOnChanges(changes: SimpleChanges): void {
+    //     if (changes['userInfo'].currentValue) {
+    //         this.getBizList();
+    //         this.getGroupList();
+    //     }
+    // }
 
     ngOnInit(): void {
+        this.userInfo = this.wizService.cache.getUser();
+        if (!this.userInfo) {
+            this.router.navigate(['login']);
+            return;
+        }
+        this.getBizList();
+        this.getGroupList();
 
     }
 

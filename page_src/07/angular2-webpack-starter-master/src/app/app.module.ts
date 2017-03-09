@@ -9,8 +9,14 @@ import {
     createInputTransfer
 } from '@angularclass/hmr';
 
+import {
+    RouterModule,
+    PreloadAllModules
+} from '@angular/router';
+
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
+import { ROUTES } from './app.routes';
 import {AppComponent}  from './app.component';
 import {WizLoginComponent}  from './wiz-login.component';
 import {WizGroupListComponent}  from './wiz-group-list.component';
@@ -31,7 +37,8 @@ type StoreType = {
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule
+        HttpModule,
+        RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
     ],
     declarations: [
         AppComponent,

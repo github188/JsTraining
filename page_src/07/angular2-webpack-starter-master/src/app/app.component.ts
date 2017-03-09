@@ -15,6 +15,7 @@ export class AppComponent  {
   public userInfo: UserInfo;
 
   setUserInfo(userInfo: UserInfo) {
+    console.log(userInfo);
     this.userInfo = userInfo;
   }
 }

@@ -12,8 +12,16 @@ import { GroupInfo }     from './data-model/groupInfo';
 @Injectable()
 export class WizService {
     private headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+    private userInfo: UserInfo;
+    public cache = {
+        getUser: () => {
+            return this.userInfo;
+        }
+    };
 
     constructor(private http: Http) {}
+
+
 
     login(params: Object): Promise<UserInfo> {
         let _urlParams = this.setParams(params);
@@ -21,7 +29,11 @@ export class WizService {
             .post('/api/login', _urlParams, {headers: this.headers})
             .toPromise()
             .then(response => {
-                return response.json() as UserInfo;
+                let userInfo = response.json() as UserInfo;
+                if (userInfo.code == '200') {
+                    this.userInfo = userInfo;
+                }
+                return userInfo;
             })
             .catch(this.handleError);
     }
