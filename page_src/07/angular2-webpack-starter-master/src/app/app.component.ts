@@ -8,10 +8,11 @@ import { UserInfo } from './data-model/userInfo';
   // moduleId: module.id,
   selector: 'my-app',
   templateUrl: './app.component.html',
+  styleUrls: ['../styles/example.css'],
   providers: [WizService]
 })
 export class AppComponent  {
-  userInfo: UserInfo;
+  public userInfo: UserInfo;
 
   setUserInfo(userInfo: UserInfo) {
     this.userInfo = userInfo;
