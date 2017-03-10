@@ -1,32 +1,30 @@
-import {Component, OnInit, OnChanges, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit, HostBinding, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
-import {Observable}        from 'rxjs/Observable';
-import {Subject}           from 'rxjs/Subject';
+import { routerTransition } from '../router/router.animations';
+import { WizService } from '../wiz.service';
 
-// Observable class extensions
-import 'rxjs/add/observable/of';
-
-// Observable operators
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-
-import {WizService} from './wiz.service';
-import {UserInfo} from './data-model/userInfo';
-import {BizInfo} from './data-model/bizInfo';
-import {GroupInfo} from './data-model/groupInfo';
+import { UserInfo } from '../data-model/userInfo';
+import { BizInfo } from '../data-model/bizInfo';
+import { GroupInfo } from '../data-model/groupInfo';
 
 @Component({
     // moduleId: module.id,
     selector: 'wiz-group-list',
-    templateUrl: './wiz-group-list.component.html',
+    templateUrl: 'wiz-group-list.component.html',
+    animations: [routerTransition()],
+    host: {'[@routerTransition]': ''},
 })
 export class WizGroupListComponent implements OnInit {
-    private userInfo: UserInfo;
-    bizList: BizInfo[];
-    groupList: GroupInfo[];
+    // @HostBinding('[@routerTransition]') '';
+    // @HostListener('routerTransition') onRouterTransition() {
+    //     console.error('on routerTransition ---------------------------');
+    //     // do work
+    // }
 
+    public groupList: GroupInfo[];
+    public bizList: BizInfo[];
+    private userInfo: UserInfo;
 
     constructor(
         private router: Router,
@@ -40,49 +38,54 @@ export class WizGroupListComponent implements OnInit {
     //     }
     // }
 
-    ngOnInit(): void {
-        this.userInfo = this.wizService.cache.getUser();
-        if (!this.userInfo) {
-            this.router.navigate(['login']);
-            return;
-        }
-        this.getBizList();
-        this.getGroupList();
-
+    public ngOnInit(): void {
+        this.wizService.checkToken().then((userInfo) => {
+            if (!userInfo) {
+                this.router.navigate(['login']);
+                return;
+            }
+            this.userInfo = userInfo;
+            this.initData();
+        });
     }
 
-    getBizList(): void {
+    private initData(): void {
+        this.getBizList();
+        this.getGroupList();
+    }
+
+    private getBizList(): void {
         this.wizService.getBizList({
             token: this.userInfo.token
         })
-            .then(bizList => {
+            .then((bizList) => {
                 this.bizList = bizList;
                 this.merge();
             });
     }
 
-    getGroupList(): void {
+    private getGroupList(): void {
         this.wizService.getGroupList({
             token: this.userInfo.token
         })
-            .then(groupList => {
+            .then((groupList) => {
                 this.groupList = groupList;
                 this.merge();
             });
     }
 
-    merge(): void {
+    private merge(): void {
         if (!this.bizList || !this.groupList ||
-            this.bizList.length == 0 || this.groupList.length == 0) {
+            this.bizList.length === 0 || this.groupList.length === 0) {
             return;
         }
 
-        let bizMap = {},
-            biz: BizInfo,
-            group: GroupInfo,
-            i: number;
-
+        let bizMap = {};
+        let biz: BizInfo;
+        let group: GroupInfo;
+        let i: number;
         let personalBiz = new BizInfo();
+
         personalBiz.biz_guid = 'personal';
         personalBiz.biz_name = '个人群组';
 
@@ -105,9 +108,7 @@ export class WizGroupListComponent implements OnInit {
                 }
                 biz.groupList.push(group);
             }
-
         }
-
     }
 
 }

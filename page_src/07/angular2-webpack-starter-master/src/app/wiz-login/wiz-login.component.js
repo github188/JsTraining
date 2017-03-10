@@ -15,8 +15,8 @@ require('rxjs/add/observable/of');
 require('rxjs/add/operator/catch');
 require('rxjs/add/operator/debounceTime');
 require('rxjs/add/operator/distinctUntilChanged');
-var wiz_service_1 = require('./wiz.service');
-var userInfo_1 = require('./data-model/userInfo');
+var wiz_service_1 = require('./../wiz.service.ts');
+var userInfo_1 = require('./../data-model/userInfo');
 var WizLoginComponent = (function () {
     function WizLoginComponent(wizService) {
         this.wizService = wizService;

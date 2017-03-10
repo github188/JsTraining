@@ -1,9 +1,9 @@
-import {GroupInfo} from './groupInfo';
+import { GroupInfo } from './groupInfo';
 
 export class BizInfo {
-    biz_guid: string;
-    biz_name: string;
-    owner_guid: string;
-    user_group: number;
-    groupList: GroupInfo[]
+    public biz_guid: string;
+    public biz_name: string;
+    public owner_guid: string;
+    public user_group: number;
+    public groupList: GroupInfo[];
 }

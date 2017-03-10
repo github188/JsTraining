@@ -1,7 +1,7 @@
-import {Routes} from '@angular/router';
-import {WizLoginComponent} from './wiz-login.component';
-import {WizGroupListComponent} from './wiz-group-list.component';
-import {NoContentComponent} from './no-content';
+import { Routes } from '@angular/router';
+import { WizLoginComponent } from '../wiz-login/wiz-login.component';
+import { WizGroupListComponent } from '../wiz-group-list/wiz-group-list.component';
+import { NoContentComponent } from './no-content';
 
 export const ROUTES: Routes = [
     {

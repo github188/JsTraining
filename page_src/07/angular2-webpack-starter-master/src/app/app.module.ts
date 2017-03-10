@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {NgModule, ApplicationRef, CUSTOM_ELEMENTS_SCHEMA}      from '@angular/core';
+import { NgModule, ApplicationRef, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 
 import {
     removeNgStyles,
@@ -16,10 +16,10 @@ import {
 
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { ROUTES } from './app.routes';
-import {AppComponent}  from './app.component';
-import {WizLoginComponent}  from './wiz-login.component';
-import {WizGroupListComponent}  from './wiz-group-list.component';
+import { ROUTES } from './router/app.routes';
+import { AppComponent }  from './app.component';
+import { WizLoginComponent }  from './wiz-login/wiz-login.component';
+import { WizGroupListComponent }  from './wiz-group-list/wiz-group-list.component';
 
 // Application wide providers
 const APP_PROVIDERS = [
